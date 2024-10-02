@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Автопарк</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Автопарк</h1>
+<a href="/showNewCarForm">|| Добавить машину</a>
+<a href="/sortByRegistrationDate">|| Сортировать по дате постановки на учёт</a>
+<a href="/statistics">|| Посмотреть статистику</a>
+<form action="/search" method="get" th:action="@{/search}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="text" name="keyword" placeholder="Поиск по марке">
+    <button type="submit">Поиск</button>
+</form>
+<form action="/searchOwner" method="get" th:action="@{/searchOwner}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="text" name="keyword" placeholder="Поиск по владельцу">
+    <button type="submit">Поиск</button>
+</form>
+<p>Общее количество машин: <span th:text="${carCount}"></span></p>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Марка</th>
+        <th>Год выпуска</th>
+        <th>Дата постановки на учёт</th>
+        <th>Владелец</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.id}"></td>
+        <td th:text="${car.brand}"></td>
+        <td th:text="${car.carProduction}"></td>
+        <td th:text="${car.registrationDate}"></td>
+        <td th:text="${car.owner}"></td>
+        <td>
+            <a th:href="@{/showFormForUpdate/{id}(id=${car.id})}">Редактировать</a>
+            <a th:href="@{/deleteBook/{id}(id=${car.id})}">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

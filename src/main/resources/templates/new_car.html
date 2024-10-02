@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить машину</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Добавить новую машину</h2>
+<form action="/saveCar" method="post" th:action="@{/saveCar}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+    <label for="brand">Марка</label>
+    <input type="text" id="brand" name="brand" th:value="${car.brand}">
+
+    <label for="carProduction">Год выпуска</label>
+    <input type="date" id="carProduction" name="carProduction" th:value="${car.carProduction}">
+
+    <label for="registrationDate">Дата постановки на учёт</label>
+    <input type="date" id="registrationDate" name="registrationDate" th:value="${car.registrationDate}">
+
+    <label for="owner">ФИО Владельца</label>
+    <input type="text" id="owner" name="owner" th:value="${car.owner}">
+
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

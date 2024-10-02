@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Статистика машин</title>
+    <style>
+        .chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 20px 0;
+        }
+        .bar {
+            width: 30px;
+            background-color: rgba(75, 192, 192, 0.7);
+            text-align: center;
+            margin: 0 10px;
+            transition: height 0.3s ease;
+        }
+        .bar:hover {
+            background-color: rgba(75, 192, 192, 1);
+        }
+        .bar-labels {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        .bar-label {
+            width: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Гистограмма количества поставленных на учёт машин по дням</h2>
+
+<!-- Контейнер для гистограммы -->
+<div class="chart">
+    <!-- Thymeleaf будет здесь вставлять данные -->
+    <div class="bar" th:each="entry : ${statistics}"
+         th:style="'height: ' + (${entry.value} * 10) + 'px;'"
+         th:title="${entry.key} + ' - ' + ${entry.value}">
+        <span th:text="${entry.value}"></span>
+    </div>
+</div>
+
+<!-- Подписи к столбцам -->
+<div class="bar-labels">
+    <div class="bar-label" th:each="entry : ${statistics}" th:text="${entry.key}"></div>
+</div>
+
+</body>
+</html>
