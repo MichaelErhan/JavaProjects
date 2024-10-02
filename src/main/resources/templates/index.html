@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Барбершоп</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Информационная система Барбершопа</h1>
+<a href="/showNewRecordForm">|| Добавить клиента</a>
+<a href="/sortByRecordingDateASC">|| Сортировать по дате по возрастанию</a>
+<a href="/sortByRecordingDateDESC">|| Сортировать по дате по убыванию</a>
+<a href="/statistics">|| Посмотреть статистику</a>
+<form action="/search" method="get" th:action="@{/search}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    <input type="text" name="keyword" placeholder="Поиск по всем параметрам">
+    <button type="submit">Поиск</button>
+</form>
+<p>Общее количество клиентов: <span th:text="${recordCount}"></span></p>
+<form action="/countByDate" method="get">
+    <label for="date">Выберите дату:</label>
+    <input type="date" id="date" name="date" required>
+    <button type="submit">Подсчитать</button>
+</form>
+<p>Кол-во клиентов за выбранный день: <span th:text="${clientCount}"></span></p>
+<p>Среднее кол-во клиентов в день (по всем дням): <span th:text="${averageClients}"></span></p>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>ФИО клиента</th>
+        <th>Дата записи</th>
+        <th>Услуга</th>
+        <th>Обслуживающий мастер</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="record : ${records}">
+        <td th:text="${record.id}"></td>
+        <td th:text="${record.fio}"></td>
+        <td th:text="${record.recordingDate}"></td>
+        <td th:text="${record.serviceName}"></td>
+        <td th:text="${record.fioMaster}"></td>
+        <td>
+            <a th:href="@{/showFormForUpdate/{id}(id=${record.id})}">Редактировать</a>
+            <a th:href="@{/deleteRecord/{id}(id=${record.id})}">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать клиента</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Редактировать клиента</h2>
+<form action="/saveRecord" method="post" th:action="@{/saveRecord}">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+    <input type="hidden" name="id" th:value="${record.id}">
+
+    <label for="fio">ФИО клиента</label>
+    <input type="text" id="fio" name="fio" th:value="${record.fio}">
+
+    <label for="recordingDate">Дата записи</label>
+    <input type="date" id="recordingDate" name="recordingDate" th:value="${record.recordingDate}">
+
+    <label for="serviceName">Услуга</label>
+    <input type="text" id="serviceName" name="serviceName" th:value="${record.serviceName}">
+
+    <label for="fioMaster">Мастер</label>
+    <input type="text" id="fioMaster" name="fioMaster" th:value="${record.fioMaster}">
+
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
